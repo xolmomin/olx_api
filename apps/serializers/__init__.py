@@ -1,0 +1,3 @@
+from apps.serializers.users import UserModelSerializer
+from apps.serializers.adverts_handbook import RegionModelSerializer, CategoryModelSerializer, ComplainModelSerializer, DistrictModelSerializer
+from apps.serializers.adverts import AdvertModelSerializer

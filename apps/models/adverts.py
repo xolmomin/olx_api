@@ -1,5 +1,5 @@
 from django.db.models import CharField, CASCADE, PROTECT, Model, ForeignKey, \
-    IntegerField, TextChoices, BooleanField, DateTimeField
+    IntegerField, TextChoices, BooleanField, DateTimeField, JSONField
 
 
 class Advert(Model):
@@ -10,14 +10,14 @@ class Advert(Model):
         FINISHED = 'finished', 'Nofaol'
         MODERATED = 'moderated', 'Rad etilgan'
 
-    # class PaymentType(TextChoices):
-    #     FREE = 'free', 'bepul'
-    #     EXCHANGE = 'exchange', 'ayirboshlash'
-    #     CASH = 'cash', 'narx'
+    class PaymentType(TextChoices):
+        FREE = 'free', 'bepul'
+        EXCHANGE = 'exchange', 'ayirboshlash'
+        CASH = 'cash', 'narx'
 
-    # class StatusType(TextChoices):
-    #     NEW = 'new', 'yangi'
-    #     USED = 'used', 'ishlatilgan'
+    class StatusType(TextChoices):
+        NEW = 'new', 'yangi'
+        USED = 'used', 'ishlatilgan'
 
     class OwnerType(TextChoices):
         private = 'private', 'Xususiy'
@@ -25,12 +25,13 @@ class Advert(Model):
 
     title = CharField(max_length=255)
     description = CharField(max_length=255)
-    # payment_type = CharField(max_length=10, choices=PaymentType.choices)
+
+    payment_type = CharField(max_length=10, choices=PaymentType.choices)
     currency_type = ForeignKey('apps.CurrencyType', PROTECT)
     price = IntegerField(null=True, blank=True)
     is_negotiable = BooleanField(null=True, blank=True)
     owner_type = CharField(max_length=10, choices=OwnerType.choices)
-    # status = CharField(max_length=5, choices=StatusType.choices)
+    status = CharField(max_length=5, choices=StatusType.choices)
     region = ForeignKey('apps.Region', CASCADE)
     district = ForeignKey('apps.District', CASCADE)
     phone = CharField(max_length=25, null=True, blank=True)
